@@ -11,7 +11,8 @@ from pathlib import Path
 from fastai.learner import load_learner
 
 def download_model(reference: str="latest"):
-    if reference == "latest"
+    if reference == "latest":
+        pass
     ...
 
 def list_available_models():
@@ -22,6 +23,7 @@ def preprocess_image():
 
 def predict_image():
     if batch:
+        pass
     ...
 
 def show_activate_layers():
