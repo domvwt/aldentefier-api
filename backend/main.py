@@ -1,80 +1,58 @@
 import os
-import uuid
 
 import uvicorn
 from fastapi import File
 from fastapi import FastAPI
 from fastapi import UploadFile
-import numpy as np
-from PIL import Image
-from pathlib import Path
 
+from fastai.vision.core import Image
+from pathlib import Path
 from dotenv import load_dotenv
+
 from google.cloud import storage
 from fastai.basics import load_learner
+from fastai.learner import Learner
 
+
+BASE_DIRECTORY = Path(__file__).parent.absolute()
+RELATIVE_MODEL_PATH = "models/aldentefier-0.1.pkl"
+ABSOLUTE_MODEL_PATH = BASE_DIRECTORY/RELATIVE_MODEL_PATH
 
 load_dotenv()
+app = FastAPI()
 
 # https://elements.heroku.com/buildpacks/buyersight/heroku-google-application-credentials-buildpack
 
 
-def download_model(reference: str = "latest"):
-    if reference == "latest":
-        pass
-    ...
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Aldentefier"}
+
+
+@app.post("/predict")
+def predict_image(image: bytes = File(...)):
+    model = load_learner(MODEL_PATH)
+    pred = model.predict(image)
+    return {"prediction": pred[0]}
 
 
 def download_model(bucket_name, model_name, destination_file_name):
-    """Downloads a blob from the bucket."""
-    # bucket_name = "your-bucket-name"
-    # source_blob_name = "storage-object-name"
-    # destination_file_name = "local/path/to/file"
-
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
 
-    # Construct a client side representation of a blob.
-    # Note `Bucket.blob` differs from `Bucket.get_blob` as it doesn't retrieve
-    # any content from Google Cloud Storage. As we don't need additional data,
-    # using `Bucket.blob` is preferred here.
     blob = bucket.blob(model_name)
     blob.download_to_filename(destination_file_name)
 
-    print("Model {} downloaded to {}.".format(model_name, destination_file_name))
 
-
-def download_test_images():
-    ...
-
-
-def list_available_models():
-    ...
-
-
-def preprocess_image():
-    ...
-
-
-def predict_image():
-    if batch:
-        pass
-    ...
-
-
-def show_activation_areas():
-    ...
-
-
-def show_image_heatmap():
-    ...
-
-
-def main():
-    download_model(os.environ.get("GSBUCKET"), "models/aldentefier-0.1.pkl", "models")
-    model = load_learner("backend/models/aldentefier-0.1.pkl")
-    print(model)
+def main(relative_path, absolute_path):
+    if not Path(absolute_path).is_file():
+        print(f"Downloading model to: {absolute_path}...")
+        download_model(os.environ.get("GSBUCKET"), relative_path, str(absolute_path))
+        print("Complete.")
+    else:
+        print(f"Found model: {absolute_path}")
 
 
 if __name__ == "__main__":
-    main()
+    main(RELATIVE_MODEL_PATH, ABSOLUTE_MODEL_PATH)
+    # uvicorn.run("main:app", host="0.0.0.0", port=8080)
