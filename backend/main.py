@@ -1,27 +1,18 @@
-import os
+from pathlib import Path
 
 import uvicorn
-from fastapi import File
-from fastapi import FastAPI
-from fastapi import UploadFile
-
-from fastai.vision.core import Image
-from pathlib import Path
 from dotenv import load_dotenv
-
-from google.cloud import storage
 from fastai.basics import load_learner
 from fastai.learner import Learner
-
+from fastapi import FastAPI, File, UploadFile
+from google.cloud import storage
 
 BASE_DIRECTORY = Path(__file__).parent.absolute()
 RELATIVE_MODEL_PATH = "models/aldentefier-0.1.pkl"
-ABSOLUTE_MODEL_PATH = BASE_DIRECTORY/RELATIVE_MODEL_PATH
+ABSOLUTE_MODEL_PATH = BASE_DIRECTORY / RELATIVE_MODEL_PATH
 
 load_dotenv()
 app = FastAPI()
-
-# https://elements.heroku.com/buildpacks/buyersight/heroku-google-application-credentials-buildpack
 
 
 @app.get("/")
@@ -55,4 +46,4 @@ def main(relative_path, absolute_path):
 
 if __name__ == "__main__":
     main(RELATIVE_MODEL_PATH, ABSOLUTE_MODEL_PATH)
-    # uvicorn.run("main:app", host="0.0.0.0", port=8080)
+    uvicorn.run("main:app", host="0.0.0.0", port=8080)
