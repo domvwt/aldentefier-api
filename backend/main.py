@@ -4,8 +4,9 @@ import uvicorn
 from dotenv import load_dotenv
 from fastai.basics import load_learner
 from fastai.learner import Learner
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File
 from google.cloud import storage
+from pydantic import BaseModel
 
 BASE_DIRECTORY = Path(__file__).parent.absolute()
 RELATIVE_MODEL_PATH = "models/aldentefier-0.1.pkl"
@@ -15,16 +16,25 @@ load_dotenv()
 app = FastAPI()
 
 
+class PredictOut(BaseModel):
+    predicted_class: str
+    likelihood: float
+
+
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to Aldentefier"}
+    return {"message": "Aldentefier ready - send an image to /predict or visit /docs for API documentation."}
 
 
-@app.post("/predict")
-def predict_image(image: bytes = File(...)):
-    model = load_learner(MODEL_PATH)
+@app.post("/predict", response_model=PredictOut)
+def predict_image(
+    image: bytes = File(
+        ..., description="Image sent to model for class prediction - required as bytes."
+    )
+):
+    model = load_learner(ABSOLUTE_MODEL_PATH)
     pred = model.predict(image)
-    return {"prediction": pred[0]}
+    return {"predicted_class": pred[0], "likelihood": max(pred[2])}
 
 
 def download_model(bucket_name, model_name, destination_file_name):
@@ -46,4 +56,4 @@ def main(relative_path, absolute_path):
 
 if __name__ == "__main__":
     main(RELATIVE_MODEL_PATH, ABSOLUTE_MODEL_PATH)
-    uvicorn.run("main:app", host="0.0.0.0", port=8080)
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
