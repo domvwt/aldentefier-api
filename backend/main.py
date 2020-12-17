@@ -23,13 +23,13 @@ class PredictOut(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"message": "Aldentefier ready - send an image to /predict or visit /docs for API documentation."}
+    return {"message": "Aldentefier ready - visit /docs or /redoc for API documentation."}
 
 
 @app.post("/predict", response_model=PredictOut)
 def predict_image(
     image: bytes = File(
-        ..., description="Image sent to model for class prediction - required as bytes."
+        ..., description="Image sent to model for class prediction - required as binary."
     )
 ):
     model = load_learner(ABSOLUTE_MODEL_PATH)
