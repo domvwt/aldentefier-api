@@ -1,0 +1,15 @@
+name: ald-api-backend
+channels:
+  - fastai
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - fastai=2.1.9
+  - pytorch 
+  - torchvision 
+  - cpuonly
+  - ipython
+  - fastapi
+  - uvicorn
+  - python-multipart

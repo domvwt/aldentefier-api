@@ -1,6 +1,6 @@
 # Project specific files
-models/
-Macaroni-Cheese.jpg
+images/
+# ald-api-backend.yaml
 
 # VSCode settings
 .vscode
