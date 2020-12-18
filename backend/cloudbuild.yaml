@@ -1,5 +1,5 @@
 steps:
-  - name: gsutil
+  - name: gcr.io/cloud-builders/gcloud
     args:
       - gsutil
       - cp
