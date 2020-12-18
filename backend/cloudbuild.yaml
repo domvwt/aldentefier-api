@@ -2,6 +2,7 @@ steps:
   - name: gcr.io/cloud-builders/gsutil
     args:
       - cp
+      - '-r'
       - gs://aldentefier/models
       - ./backend/models
     id: Fetch
