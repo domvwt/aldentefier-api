@@ -17,12 +17,15 @@ image = st.file_uploader("Upload a photo", type=["png", "jpg", "jpeg"])
 
 if st.button("Predict!"):
     if image is not None:
-        payload = {"image": image.read()}
-        r = requests.post(API_PREDICT_ROUTE, data=payload)
-        print(r)
+        image_bytes = image.read()
+        st.image(image_bytes, width=400)
+        payload = {"image": image_bytes}
+        r = requests.post(API_PREDICT_ROUTE, files=payload)
+        print(r.text)
         r_json = r.json()
         pred_class = r_json.get("predicted_class")
         likelihood = r_json.get("likelihood")
         st.header("Prediction")
         st.subheader(f"Pasta: {pred_class}")
         st.subheader(f"Likelihood: {likelihood}")
+
