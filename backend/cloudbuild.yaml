@@ -4,7 +4,8 @@ steps:
       - gsutil
       - cp
       - gs://aldentefier/models
-      - ./models
+      - ./backend/models
+    id: Fetch
   - name: gcr.io/cloud-builders/docker
     args:
       - build
