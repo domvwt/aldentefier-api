@@ -1,4 +1,11 @@
 steps:
+  - name: ubuntu
+    args:
+      - gsutil
+      - cp
+      - gs://aldentefier/models
+      - ./backend/models
+    id: Fetch
   - name: gcr.io/cloud-builders/docker
     args:
       - build
