@@ -9,23 +9,62 @@ from dotenv import load_dotenv
 
 load_dotenv()
 API_PREDICT_ROUTE = os.environ.get("API_PREDICT_ROUTE")
+API_ROOT = os.environ.get("API_ROOT")
 
 
-st.title("Pasta Aldentefier")
+st.set_page_config(
+    page_title="Aldentefier",
+    page_icon=":spaghetti:",
+    layout="centered",
+    initial_sidebar_state="auto",
+)
 
-image = st.file_uploader("Upload a photo", type=["png", "jpg", "jpeg"])
+st.title("Pasta Aldentefier :spaghetti:")
 
-if st.button("Predict!"):
-    if image is not None:
-        image_bytes = image.read()
-        st.image(image_bytes, width=400)
+r = requests.get(API_ROOT)
+if not r.ok:
+    st.markdown(":no_entry_sign: API Down, please try again later!")
+
+st.subheader("Choose an image:")
+
+image = st.file_uploader("", type=["png", "jpg", "jpeg"])
+
+button = st.button("Predict!")
+
+col1, col2 = st.beta_columns(2)
+
+st.spinner()
+
+slot1 = col1.empty()
+slot2 = col1.empty()
+slot3 = col1.empty()
+slot4 = col2.empty()
+slot5 = col2.empty()
+
+if image is not None:
+    image_bytes = image.read()
+    slot4.markdown("*Your image:*")
+    slot5.image(image_bytes, use_column_width=True)
+
+if button and image is not None:
+    with st.spinner():
         payload = {"image": image_bytes}
         r = requests.post(API_PREDICT_ROUTE, files=payload)
         print(r.text)
         r_json = r.json()
         pred_class = r_json.get("predicted_class")
         likelihood = r_json.get("likelihood")
-        st.header("Prediction")
-        st.subheader(f"Pasta: {pred_class}")
-        st.subheader(f"Likelihood: {likelihood}")
+        slot1.header("Prediction")
+        if likelihood > 0.9:
+            slot2.markdown(f"> **Pasta Type:** *{pred_class.capitalize()}*")
+            slot3.markdown(f"> **Likelihood:** *{round(likelihood * 100, 2)}%*")
+            st.balloons()
+        else:
+            slot2.markdown(f"> **Pasta Type:** *Not Pasta!*")
+            slot3.markdown(f"> **Likelihood:** *{round((1 - likelihood) * 100, 2)}%*")
 
+
+st.markdown("----")
+st.markdown(
+    "[Github](https://github.com/domvwt/aldentefier-api) | [LinkedIn](https://www.linkedin.com/in/dominic-thorn/)"
+)
