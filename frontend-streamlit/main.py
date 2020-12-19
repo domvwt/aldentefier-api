@@ -74,8 +74,8 @@ if button and image is not None:
             slot3.markdown(f"> **Likelihood:** *{round(likelihood * 100, 2)}%*")
             st.balloons()
         else:
-            slot2.markdown(f"> **Pasta Type:** *I don't know :confused:*")
-            slot3.markdown(f"> **Likelihood:** --%*")
+            slot2.markdown(f"> **Pasta Type:** *I don't know* :confused:")
+            slot3.markdown(f"> **Likelihood:** *--%*")
 
 
 st.markdown("----")
