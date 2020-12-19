@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["conda", "run", "-n", "ald-api-streamlit", "streamlit", "run", "main.py"]
+CMD ["conda", "run", "-n", "ald-api-streamlit", "streamlit", "run", "main.py", "--server.port", "8080"]
