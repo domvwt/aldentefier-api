@@ -1,0 +1,8 @@
+name: ald-api-streamlit
+channels:
+  - default
+  - conda-forge
+dependencies:
+  - streamlit
+  - pillow
+  - python-dotenv
