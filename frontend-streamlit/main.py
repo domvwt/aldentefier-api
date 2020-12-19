@@ -21,6 +21,20 @@ st.set_page_config(
 
 st.title("Pasta Aldentefier :spaghetti:")
 
+st.markdown("""
+    The Pasta Aldentefier is an image recognition app that
+    can *somewhat* reliably identify images of dry pasta. 
+
+
+    The model has been trained on Google image search results to recognise:
+    * Farfalle
+    * Fusilli
+    * Macaroni
+    * Penne
+    * Rigatoni
+    * Spaghetti
+""")
+
 r = requests.get(API_ROOT)
 if not r.ok:
     st.markdown(":no_entry_sign: API Down, please try again later!")
@@ -56,12 +70,15 @@ if button and image is not None:
         likelihood = r_json.get("likelihood")
         slot1.header("Prediction")
         if likelihood > 0.9:
-            slot2.markdown(f"> **Pasta Type:** *{pred_class.capitalize()}*")
+            slot2.markdown(f"> **Pasta Type:** *{pred_class.capitalize()}!*")
             slot3.markdown(f"> **Likelihood:** *{round(likelihood * 100, 2)}%*")
             st.balloons()
+        elif likelihood > 0.7:
+            slot2.markdown(f"> **Pasta Type:** *Is it {pred_class.capitalize()}?*")
+            slot3.markdown(f"> **Likelihood:** *{round(likelihood * 100, 2)}%*")
         else:
-            slot2.markdown(f"> **Pasta Type:** *Not Pasta!*")
-            slot3.markdown(f"> **Likelihood:** *{round((1 - likelihood) * 100, 2)}%*")
+            slot2.markdown(f"> **Pasta Type:** *I don't know* :confused:")
+            slot3.markdown(f"> **Likelihood:** *--%*")
 
 
 st.markdown("----")
