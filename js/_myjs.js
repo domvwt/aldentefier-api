@@ -46,7 +46,7 @@ function ping_api() {
         },     
         error: function(result){
             document.getElementById("fastapi_status").innerHTML = "&#128308; Unavailable"
-            alert('timeout/error');
+            alert('API unavailable!');
         }
      });
 };
