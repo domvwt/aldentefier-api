@@ -19,7 +19,7 @@
   <link href="css/starter-template.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="css/_mycss.css" rel="stylesheet">
+  <link href="css/mycss.css" rel="stylesheet">
 </head>
 
 
@@ -54,7 +54,8 @@
     <div class="row justify-content-center flex-row d-flex">
       <div class="col-md-10 col-12">
         <h1 class="display-5 text-primary">Pasta Identifier</h1>
-        <p class="lead text-primary">An image recognition app that <em>somewhat</em> reliably identifies common dry pasta shapes.
+        <p class="lead text-primary">An image recognition app that <em>somewhat</em> reliably identifies common dry
+          pasta shapes.
         </p>
       </div>
     </div>
@@ -69,8 +70,7 @@
                 aria-describedby="fileHelpId" , accept=".jpg,.gif,.png">
               <small id="fileHelpId" class="form-text text-muted">jpg, gif, png</small>
             </div>
-            <p class="card-subtitle font-weight-bold">API Status</p>
-            <small class="card-text" id="fastapi_status">--</small>
+            <button class="btn btn-sm btn-warn" id="fastapi_status">Connecting...</buttom>
           </div>
         </div>
       </div>
@@ -102,15 +102,6 @@
       </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1"
-      id="loadingDiv">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content" style="width: 48px">
-          <span class="fa fa-spinner fa-spin fa-3x"></span>
-        </div>
-      </div>
-    </div>
-
   </main><!-- /.container -->
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -118,6 +109,6 @@
   <script src="js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom JS -->
-  <script type="text/javascript" src="js/_myjs.js"></script>
+  <script type="text/javascript" src="js/myjs.js"></script>
 
 </html>
