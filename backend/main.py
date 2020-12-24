@@ -16,7 +16,7 @@ load_dotenv()
 app = FastAPI()
 
 origins = [
-    "https://domvwt.github.io/aldentefier-api/",
+    "https://domvwt.github.io/aldentefier-api",
     "http://localhost:5500",
 ]
 
