@@ -4,6 +4,7 @@ import uvicorn
 from fastai.basics import load_learner
 from fastai.learner import Learner
 from fastapi import FastAPI, File
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 BASE_DIRECTORY = Path(__file__).parent.absolute()
@@ -12,6 +13,18 @@ ABSOLUTE_MODEL_PATH = BASE_DIRECTORY / RELATIVE_MODEL_PATH
 
 app = FastAPI()
 
+origins = [
+    "https://domvwt.github.io/",
+    "http://localhost:5500",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class PredictOut(BaseModel):
     predicted_class: str
