@@ -15,15 +15,12 @@ ABSOLUTE_MODEL_PATH = BASE_DIRECTORY / RELATIVE_MODEL_PATH
 load_dotenv()
 app = FastAPI()
 
-origins = [
-    "https://domvwt.github.io/aldentefier-api",
-    "http://localhost:5500",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
