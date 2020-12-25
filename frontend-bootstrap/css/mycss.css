@@ -1,0 +1,8 @@
+
+ /* CUSTOM START */
+ .img-preview {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  /* CUSTOM END */

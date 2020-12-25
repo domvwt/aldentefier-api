@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import uvicorn
-from dotenv import load_dotenv
 from fastai.basics import load_learner
 from fastai.learner import Learner
 from fastapi import FastAPI, File
@@ -12,7 +11,6 @@ BASE_DIRECTORY = Path(__file__).parent.absolute()
 RELATIVE_MODEL_PATH = "models/aldentefier-0.1.pkl"
 ABSOLUTE_MODEL_PATH = BASE_DIRECTORY / RELATIVE_MODEL_PATH
 
-load_dotenv()
 app = FastAPI()
 
 origins = ["*"]
