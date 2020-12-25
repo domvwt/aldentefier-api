@@ -43,7 +43,7 @@ function post_image() {
 
 function ping_api() {
     document.getElementById("fastapi_status").innerText = "Connecting"
-    document.getElementById("fastapi_status").className = "btn btn-sm btn-warn"
+    document.getElementById("fastapi_status").className = "btn btn-sm btn-warning"
 
     $.ajax({
         url: 'https://ald-api-backend-kxyoqpiojq-nw.a.run.app/',
