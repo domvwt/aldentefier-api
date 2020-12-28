@@ -13,6 +13,7 @@ RELATIVE_MODEL_PATH = "models/aldentefier-0.1.pkl"
 ABSOLUTE_MODEL_PATH = BASE_DIRECTORY / RELATIVE_MODEL_PATH
 
 load_dotenv()
+
 app = FastAPI(
     title="Aldentefier API",
     description="Image classification model for common dry pasta.",
