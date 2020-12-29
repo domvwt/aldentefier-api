@@ -2,7 +2,6 @@ from pathlib import Path
 
 import uvicorn
 from fastai.basics import load_learner
-from fastai.learner import Learner
 from fastapi import FastAPI, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -11,7 +10,11 @@ BASE_DIRECTORY = Path(__file__).parent.absolute()
 RELATIVE_MODEL_PATH = "models/aldentefier-0.1.pkl"
 ABSOLUTE_MODEL_PATH = BASE_DIRECTORY / RELATIVE_MODEL_PATH
 
-app = FastAPI()
+app = FastAPI(
+    title="Aldentefier API",
+    description="Image classification model for common dry pasta.",
+    version="1.0.0",
+)
 
 origins = ["*"]
 
