@@ -66,9 +66,12 @@
           <h5 class="card-header font-italic">Upload</h5>
           <div class="card-body">
             <div class="form-group">
-              <input type="file" class="form-control-file" name="" id="send_image" placeholder=""
-                aria-describedby="fileHelpId" , accept=".jpg,.gif,.png">
-              <small id="fileHelpId" class="form-text text-muted">jpg, gif, png</small>
+                <label class="btn btn-primary" style="margin-bottom: 0px;">
+                  Upload Photo
+                  <input type="file" class="form-control-file" name="" id="send_image" placeholder=""
+                    aria-describedby="fileHelpId" , accept=".jpg,.gif,.png" hidden>
+                </label>
+                <small id="fileHelpId" class="form-text text-muted" style="padding-left: 2px;">Accepts: jpg, gif, png</small>
             </div>
             <button class="btn btn-sm btn-warning" id="fastapi_status">Connecting</button>
           </div>
