@@ -3,7 +3,8 @@ FROM continuumio/miniconda3
 WORKDIR /app
 
 COPY ald-api-backend.yaml .
-RUN conda env create --file ald-api-backend.yaml
+RUN conda env create --file ald-api-backend.yaml \
+    && conda clean --all
 
 COPY . .
 
