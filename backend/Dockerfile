@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ald-api-backend.yaml .
 RUN conda env create --file ald-api-backend.yaml \
-    && conda clean --all --force-pkgs-dirs
+    && conda clean --all --force-pkgs-dirs -y
 
 COPY . .
 
